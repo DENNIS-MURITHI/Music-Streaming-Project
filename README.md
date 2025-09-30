@@ -153,7 +153,7 @@ ORDER BY total_favorites DESC;
 
 ---
 
-# 📊 ERD Diagram And Data dictionar <a name="erd-diagram"></a>
+# 📊 ERD Diagram <a name="erd-diagram"></a>
 
 <div align="center">
 
@@ -169,7 +169,7 @@ ORDER BY total_favorites DESC;
 
 *Generated using [draw.io](https://draw.io) and verified in Supabase.*
 
-#Data dictionar <a name="data dictionary"></a>
+# Data dictionary<a name="data dictionary"></a>
 
 **📖 Data Dictionary:** [Check it here ](https://github.com/DENNIS-MURITHI/Data-Tools/blob/test_branch/data_dictionary.md)
 
