@@ -1,4 +1,5 @@
 # Data-Tools
+
 <div align="center">
   <img width="200" height="200" alt="Music Streaming Logo" src="https://github.com/user-attachments/assets/20661293-a214-4004-9042-657102fb0710" />
   <br/>
@@ -7,23 +8,25 @@
 
 # 📗 Table of Contents
 
-- [📖 About the Project](#about-project)  
-  - [🛠 Built With](#built-with)  
-  - [Key Features](#key-features)  
-  - [🚀 Live Demo](#live-demo)  
-- [💻 Getting Started](#getting-started)  
-  - [Prerequisites](#prerequisites)  
-  - [Setup](#setup)  
-  - [Usage](#usage)  
-- [📊 ERD Diagram](#erd-diagram)  
-- [💾 Schema SQL](#schema-sql)  
-- [👥 Authors](#authors)  
-- [🔭 Future Features](#future-features)  
-- [🤝 Contributing](#contributing)  
-- [⭐️ Show your support](#support)  
-- [🙏 Acknowledgements](#acknowledgements)  
-- [❓ FAQ (OPTIONAL)](#faq)  
-- [📝 License](#license)
+* [📖 About the Project](#about-project)
+
+  * [🛠 Built With](#built-with)
+  * [Key Features](#key-features)
+  * [🚀 Live Demo](#live-demo)
+* [💻 Getting Started](#getting-started)
+
+  * [Prerequisites](#prerequisites)
+  * [Setup](#setup)
+  * [Usage](#usage)
+* [📊 ERD Diagram](#erd-diagram)
+* [💾 Schema SQL](#schema-sql)
+* [👥 Authors](#authors)
+* [🔭 Future Features](#future-features)
+* [🤝 Contributing](#contributing)
+* [⭐️ Show your support](#support)
+* [🙏 Acknowledgements](#acknowledgements)
+* [❓ FAQ (OPTIONAL)](#faq)
+* [📝 License](#license)
 
 ---
 
@@ -51,9 +54,9 @@
 
 ### Key Features <a name="key-features"></a>
 
-- Users can like multiple songs and track favorites.
-- Songs are linked to artists, supporting multiple songs per artist.
-- Example SQL queries for listing favorites and filtering by artist.
+* Users can like multiple songs and track favorites.
+* Songs are linked to artists, supporting multiple songs per artist.
+* Example SQL queries for listing favorites and filtering by artist.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -61,8 +64,7 @@
 
 > This project is backend-only. You can interact with it locally or via Supabase.
 
-- [Supabase Project Link](https://supabase.com/dashboard/project/octmhkzbzxsoaegmuaei/sql/3cf2fb04-a61c-4254-87aa-e725d2b6f0f9)  
-
+* [Supabase Project Link](https://supabase.com/dashboard/project/octmhkzbzxsoaegmuaei/sql/3cf2fb04-a61c-4254-87aa-e725d2b6f0f9)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -72,8 +74,8 @@
 
 ### Prerequisites
 
-- Supabase account  
-- SQL client (Supabase SQL editor)
+* Supabase account
+* SQL client (Supabase SQL editor)
 
 ### Setup
 
@@ -114,11 +116,44 @@ JOIN artists a ON s.artist_id = a.artist_id
 WHERE a.name = 'Sauti Sol';
 ```
 
+```sql
+-- Most popular artist (by total favorites across their songs)
+-- Aggregates favorites to rank artists
+-- Example: Who is the most liked artist overall?
+SELECT a.name, COUNT(uf.user_id) AS total_favorites
+FROM artists a
+JOIN songs s ON a.artist_id = s.artist_id
+LEFT JOIN user_favorites uf ON s.song_id = uf.song_id
+GROUP BY a.artist_id
+ORDER BY total_favorites DESC;
+```
+
+### Example Query Outputs
+
+<div align="center">
+**Output of query: List all songs liked by Alice**
+  
+<img width="1362" height="530" alt="image" src="https://github.com/user-attachments/assets/dd3a7612-af24-4053-9ff7-6e99b144bf3b" />
+
+<br/>
+
+**Output of query: Find all songs by Sauti Sol**
+
+<img width="1366" height="544" alt="image for all songs by sauti sol" src="https://github.com/user-attachments/assets/207391bb-79cd-47a7-bc51-995aac5c56b7" />
+
+<br/> 
+**Output of query: Most popular artists**
+
+<img width="1338" height="635" alt="image" src="https://github.com/user-attachments/assets/e75323bf-7db2-4b03-a519-fac47a419844" />
+
+
+</div>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
 
-# 📊 ERD Diagram And Data dictionary <a name="erd-diagram"></a>
+# 📊 ERD Diagram And Data dictionar <a name="erd-diagram"></a>
 
 <div align="center">
 
@@ -127,12 +162,14 @@ WHERE a.name = 'Sauti Sol';
 
 <br/> 
 
-- **Users table**: Stores user information.  
-- **Artists table**: Contains artist details.  
-- **Songs table**: Holds songs linked to artists.  
-- **User_favorites table**: Tracks which songs each user likes.  
+* **Users table**: Stores user information.
+* **Artists table**: Contains artist details.
+* **Songs table**: Holds songs linked to artists.
+* **User_favorites table**: Tracks which songs each user likes.
 
 *Generated using [draw.io](https://draw.io) and verified in Supabase.*
+
+#Data dictionar <a name="data dictionary"></a>
 
 **📖 Data Dictionary:** [Check it here ](https://github.com/DENNIS-MURITHI/Data-Tools/blob/test_branch/data_dictionary.md)
 
@@ -229,6 +266,36 @@ VALUES
 SELECT * FROM user_favorites;
 ```
 
+```sql
+-- List all songs liked by Alice
+SELECT u.username, s.title, a.name AS artist_name
+FROM user_favorites uf
+JOIN users u ON uf.user_id = u.user_id
+JOIN songs s ON uf.song_id = s.song_id
+JOIN artists a ON s.artist_id = a.artist_id
+WHERE u.username = 'alice';
+```
+
+```sql
+-- Find all songs by 'Sauti Sol'
+SELECT s.title, s.release_year
+FROM songs s
+JOIN artists a ON s.artist_id = a.artist_id
+WHERE a.name = 'Sauti Sol';
+```
+
+```sql
+-- Most popular artist (by total favorites across their songs)
+-- Aggregates favorites to rank artists
+-- Example: Who is the most liked artist overall?
+SELECT a.name, COUNT(uf.user_id) AS total_favorites
+FROM artists a
+JOIN songs s ON a.artist_id = s.artist_id
+LEFT JOIN user_favorites uf ON s.song_id = uf.song_id
+GROUP BY a.artist_id
+ORDER BY total_favorites DESC;
+```
+
 </details>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -237,9 +304,10 @@ SELECT * FROM user_favorites;
 
 # 👥 Authors <a name="authors"></a>
 
-👤 **Dennis Murithi**  
-- GitHub: [@dennismurithi](https://github.com/DENNIS-MURITHI)  
-- LinkedIn: [LinkedIn](https://www.linkedin.com/in/dennis-muthuri/)  
+👤 **Dennis Murithi**
+
+* GitHub: [@dennismurithi](https://github.com/DENNIS-MURITHI)
+* LinkedIn: [LinkedIn](https://www.linkedin.com/in/dennis-muthuri/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -247,9 +315,9 @@ SELECT * FROM user_favorites;
 
 # 🔭 Future Features <a name="future-features"></a>
 
-- [ ] Integrate with a front-end music streaming app  
-- [ ] Add advanced analytics (most liked songs, popular artists)  
-- [ ] Support playlists and song ratings  
+* [ ] Integrate with a front-end music streaming app
+* [ ] Add advanced analytics (most liked songs, popular artists)
+* [ ] Support playlists and song ratings
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -273,8 +341,7 @@ If you like this project, give it a ⭐️ on GitHub!
 
 # 🙏 Acknowledgements <a name="acknowledgements"></a>
 
-- Thanks to [Supabase](https://supabase.com/) for providing the PostgreSQL platform to generate and test the schema.
-- Thanks to [draw.io](https://draw.io) for ERD visualization inspiration.
+* Thanks to [Supabase](https://supabase.com/) for providing the PostgreSQL platform to generate and test the schema.
+* Thanks to [draw.io](https://draw.io) for ERD visualization inspiration.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
