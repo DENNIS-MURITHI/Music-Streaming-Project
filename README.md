@@ -82,7 +82,7 @@
 Clone this repository:
 
 ```bash
-git clone https://github.com/yourusername/music-streaming-database.git
+git clone https://github.com/DENNIS-MURITHI/music-streaming-database.git
 cd music-streaming-database
 ```
 
