@@ -25,7 +25,7 @@
 * [🤝 Contributing](#contributing)
 * [⭐️ Show your support](#support)
 * [🙏 Acknowledgements](#acknowledgements)
-* [❓ FAQ (OPTIONAL)](#faq)
+* [❓ FAQ ](#faq)
 * [📝 License](#license)
 
 ---
@@ -131,18 +131,19 @@ ORDER BY total_favorites DESC;
 ### Example Query Outputs
 
 <div align="center">
-** Output of query: List all songs liked by Alice **
+  
+**Output of query: List all songs liked by Alice**
   
 <img width="1362" height="530" alt="image" src="https://github.com/user-attachments/assets/dd3a7612-af24-4053-9ff7-6e99b144bf3b" />
 
 <br/>
 
-** Output of query: Find all songs by Sauti Sol **
+**Output of query: Find all songs by Sauti Sol**
 
 <img width="1366" height="544" alt="image for all songs by sauti sol" src="https://github.com/user-attachments/assets/207391bb-79cd-47a7-bc51-995aac5c56b7" />
 
 <br/> 
-** Output of query: Most popular artists **
+**Output of query: Most popular artists**
 
 <img width="1338" height="635" alt="image" src="https://github.com/user-attachments/assets/e75323bf-7db2-4b03-a519-fac47a419844" />
 
@@ -345,3 +346,15 @@ If you like this project, give it a ⭐️ on GitHub!
 * Thanks to [draw.io](https://draw.io) for ERD visualization inspiration.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+## ❓ FAQ 
+
+1. How do I run this project?
+2. What dependencies are needed?
+3. Can I use mysql Workbench ?
+
+## 📝 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
