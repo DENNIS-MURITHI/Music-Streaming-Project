@@ -349,12 +349,12 @@ If you like this project, give it a ⭐️ on GitHub!
 
 ---
 
-# ❓ FAQ 
+# ❓ FAQ <a name="faq"></a>
 
 1. How do I run this project?
 2. What dependencies are needed?
 3. Can I use mysql Workbench ?
 
-# 📝 License
+# 📝 License <a name="license"></a>
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
