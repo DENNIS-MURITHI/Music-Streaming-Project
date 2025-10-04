@@ -139,5 +139,5 @@ $$;
 ## 📎 Reference
 
 -   Linked to [README.md](README.md)
--   Supabase Policies:<https://supabase.com/docs/guides/database/postgres/row-level-security>
+-   [Supabase Policies:](https://supabase.com/docs/guides/database/postgres/row-level-security)
   
