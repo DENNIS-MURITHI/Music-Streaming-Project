@@ -1,5 +1,5 @@
 
-# Data-Tools
+# Data-Analysis
 
 <div align="center">
   <img width="200" height="200" alt="Music Streaming Logo" src="https://github.com/user-attachments/assets/20661293-a214-4004-9042-657102fb0710" />
