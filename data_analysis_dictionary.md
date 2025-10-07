@@ -125,6 +125,11 @@ From Supabase → **Settings → Database → Connection info**:
 - SSL mode (`require`)
 
 ---
+## 🔗 Here is a quick visual to learn how to connect supabase database to R Posit
+[Supabase Connection Documentation](https://supabase.com/docs/guides/database/connecting-to-postgres) **Learn more from here..**
+
+<img width="1366" height="670" alt="image" src="https://github.com/user-attachments/assets/88c68653-aae2-4e18-8c6c-4006c2ba4da3" />
+
 
 ## **3. Connect from Posit**
 
