@@ -68,7 +68,7 @@
 * SQL queries for analyzing top songs, active users, and most popular artists.
 * R-based visualizations for song popularity, user activity, and artist performance.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#about-project">back to top</a></p>
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
@@ -76,7 +76,7 @@
 
 * [Supabase Project Link](https://supabase.com/dashboard/project/octmhkzbzxsoaegmuaei/sql/3cf2fb04-a61c-4254-87aa-e725d2b6f0f9)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#about-project">back to top</a></p>
 
 ---
 
@@ -106,18 +106,37 @@ cd music-streaming-database
 \i schema.sql
 ```
 
-3. Run example queries like:
+3. A quick taste of how R posit code would look like:
 
-```sql
--- Songs liked by Alice
-SELECT u.username, s.title, a.name AS artist_name
-FROM user_favorites uf
-JOIN users u ON uf.user_id = u.user_id
-JOIN songs s ON uf.song_id = s.song_id
-JOIN artists a ON s.artist_id = a.artist_id
-WHERE u.username = 'alice';
+```r
+# Load connection
+source("connect_db.R")
+con <- connect_db()
+
+# Run your query
+query <- "
+  SELECT u.username, s.title, a.name AS artist_name
+  FROM user_favorites uf
+  JOIN users u ON uf.user_id = u.user_id
+  JOIN songs s ON uf.song_id = s.song_id
+  JOIN artists a ON s.artist_id = a.artist_id
+  WHERE u.username = 'alice';
+"
+
+# Execute query and store results
+alice_favorites <- dbGetQuery(con, query)
+
+# View results
+print(alice_favorites)
+#outome : 
+# source("/cloud/project/alice_favorite.R")
+#username              title artist_name
+#1    alice Programmers choice   Sauti Sol
+
 ```
+# Outcome upon running the code
 
+<img width="1366" height="634" alt="image" src="https://github.com/user-attachments/assets/586fef26-f522-47cc-9531-11af15845984" />
 ---
 
 ### Connecting from Posit to Supabase <a name="posit-supabase-connection"></a>
@@ -154,6 +173,10 @@ dbListTables(con)
 ```
 
 ---
+# Outcome after establishing connection
+<img width="1366" height="680" alt="establish connection to supabase databse in posit" src="https://github.com/user-attachments/assets/6b9d9c3f-9387-46d7-b15e-0f880ba6f362" />
+
+
 
 # 💾 Schema SQL <a name="schema-sql"></a>
 
@@ -229,18 +252,18 @@ ggplot(agg_artist, aes(x=n_songs, y=avg_fav_per_song, size=total_favorites, labe
 </details>
 
 ### Most Favorited Songs
-
-![](path/to/popular_songs_plot.png)
+<img width="1366" height="630" alt="plotting most favorite songs4" src="https://github.com/user-attachments/assets/a00864a0-99b8-4b2a-8e77-4cdfe6e73caa" />
 
 ### Most Active Users
 
-![](path/to/active_users_plot.png)
+<img width="1363" height="628" alt="most active user5" src="https://github.com/user-attachments/assets/12d08288-53ce-4880-8c05-ff0382909a74" />
+
 
 ### Artist Performance Bubble Chart
+<img width="1366" height="686" alt="image" src="https://github.com/user-attachments/assets/e004292a-1f80-4ad9-97cf-b56b57af8339" />
 
-![](path/to/artist_performance_plot.png)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#about-project">back to top</a></p>
 
 ---
 
@@ -248,7 +271,7 @@ ggplot(agg_artist, aes(x=n_songs, y=avg_fav_per_song, size=total_favorites, labe
 
 **📖 Full Data Dictionary:** [Check it here](https://github.com/DENNIS-MURITHI/Data-Tools/blob/test_branch/data_dictionary.md)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#about-project">back to top</a></p>
 
 ---
 
@@ -259,7 +282,7 @@ ggplot(agg_artist, aes(x=n_songs, y=avg_fav_per_song, size=total_favorites, labe
 * GitHub: [@dennismurithi](https://github.com/DENNIS-MURITHI)
 * LinkedIn: [LinkedIn](https://www.linkedin.com/in/dennis-muthuri/)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#about-project">back to top</a></p>
 
 ---
 
@@ -267,9 +290,9 @@ ggplot(agg_artist, aes(x=n_songs, y=avg_fav_per_song, size=total_favorites, labe
 
 * Front-end integration with music streaming app  
 * Advanced analytics (top songs, popular artists, trends)  
-* Playlists, ratings, and user-generated content  
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+* Playlists, ratings, and user-generated content
+* 
+<p align="right"><a href="#about-project">back to top</a></p>
 
 ---
 
@@ -277,7 +300,7 @@ ggplot(agg_artist, aes(x=n_songs, y=avg_fav_per_song, size=total_favorites, labe
 
 Contributions, issues, and feature requests are welcome. Open an issue or submit a pull request.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#about-project">back to top</a></p>
 
 ---
 
@@ -285,24 +308,38 @@ Contributions, issues, and feature requests are welcome. Open an issue or submit
 
 If you like this project, give it a ⭐️ on GitHub!
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#about-project">back to top</a></p>
 
 ---
 
 # 🙏 Acknowledgements <a name="acknowledgements"></a>
 
 * [Supabase](https://supabase.com/) for PostgreSQL hosting and testing  
-* [draw.io](https://draw.io) for ERD creation inspiration  
+* [Posit](https://docs.posit.co/connect/) Connect Documentation   
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#about-project">back to top</a></p>
 
 ---
 
 # ❓ FAQ <a name="faq"></a>
 
-1. How do I run this project?  
-2. What dependencies are needed?  
-3. Can I connect using MySQL Workbench? (No, PostgreSQL/Supabase only)  
+**1. How do I run this project in Posit?**  
+Open the repository in **Posit (RStudio)**, install dependencies, and run the R scripts step by step.  
+Make sure your Supabase credentials are set correctly in `connect_db.R`.
+
+**2. What dependencies are needed?**  
+Install the following R packages:  
+```r
+install.packages(c("DBI", "RPostgres", "dplyr", "ggplot2"))
+```
+### 3. Can I use MySQL or other databases?  
+❌ **No.** This project connects only to **Supabase (PostgreSQL)** for consistency and compatibility with R and Posit.
+
+---
+
+### 4. How do I connect Posit to Supabase?  
+Use the `DBI` and `RPostgres` packages along with your Supabase credentials found in:  
+**Supabase → Project Settings → Database → Connection Info**  
 
 # 📝 License <a name="license"></a>
 
