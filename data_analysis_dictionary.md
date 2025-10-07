@@ -1,4 +1,4 @@
-# 📖 Music Streaming Project Data Dictionary
+# 📖 Music Streaming Dataset Documentation (Posit + Supabase)
 
 This data dictionary describes all tables, columns, and their meanings for the Music Streaming project, aligned with the R analysis we performed in Posit using Supabase.
 
