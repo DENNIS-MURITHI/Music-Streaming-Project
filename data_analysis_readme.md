@@ -178,14 +178,124 @@ dbListTables(con)
 
 
 
-# 💾 Schema SQL <a name="schema-sql"></a>
+# 💾 Must Have Schema SQL <a name="schema-sql"></a>
+
 
 <details>
-<summary>Click to expand full schema.sql</summary>
+  <summary>Click to expand the full schema.sql that you must run in supabase before you create a conection to posit studi</summary>
 
 ```sql
--- Full schema and sample data (users, artists, songs, user_favorites)
--- See previous sections for full content
+-- Users table
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    signup_date DATE NOT NULL
+);
+
+-- Artists table
+CREATE TABLE artists (
+    artist_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    genre VARCHAR(50)
+);
+
+-- Songs table
+CREATE TABLE songs (
+    song_id SERIAL PRIMARY KEY,
+    title VARCHAR(150) NOT NULL,
+    artist_id INT REFERENCES artists(artist_id),
+    release_year INT,
+    duration_seconds INT
+);
+
+-- User favorites table
+CREATE TABLE user_favorites (
+    favorite_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(user_id),
+    song_id INT REFERENCES songs(song_id),
+    favorited_at DATE DEFAULT CURRENT_DATE
+);
+
+-- Users
+INSERT INTO users (username, email, signup_date) VALUES
+('alice', 'alice@example.com', '2025-01-10'),
+('bob', 'bob@example.com', '2025-02-20'),
+('carol', 'carol@example.com', '2025-03-15'),
+('david', 'david@example.com', '2025-04-05'),
+('evelyne', 'evelyne@example.com', '2025-05-12'),
+('francis', 'francis@example.com', '2025-06-01'),
+('grace', 'grace@example.com', '2025-06-10'),
+('dennis', 'dennis@example.com', '2025-06-15'),
+('ken', 'ken@example.com', '2025-06-20'),
+('sharon', 'sharon@example.com', '2025-06-25');
+
+-- Artists
+INSERT INTO artists (name, genre) 
+VALUES
+('Sauti Sol', 'Afro-Pop'),         
+('Nyashinski', 'Hip-Hop'),         
+('Diamond Platnumz', 'Bongo Flava'), 
+('Willy Paul', 'Gospel/Pop'),      
+('Davido', 'Afrobeat'),            
+('Bien', 'Afro-Pop'),              
+('Bahati', 'Gospel/Pop'),          
+('Iyanii', 'Afrobeat');
+
+-- Songs
+INSERT INTO songs (title, artist_id, release_year, duration_seconds) 
+VALUES
+('Suzanna', 1, 2019, 240),
+('Kuliko Jana', 1, 2016, 220),
+('Malaika', 2, 2016, 215),
+('Now You Know', 2, 2018, 210),
+('Jeje', 3, 2020, 250),
+('African Beauty', 3, 2019, 240),
+('I Do', 4, 2018, 230),
+('Una', 4, 2020, 225),
+('Fall', 5, 2017, 245),
+('If', 5, 2017, 230),
+('Nairobi Love', 6, 2021, 215),
+('Upendo', 7, 2019, 220),
+('Sweet Melody', 8, 2020, 210);
+
+-- User favorites
+INSERT INTO user_favorites (user_id, song_id) 
+VALUES
+(1, 1), (1, 3), (2, 5), (2, 2), (3, 6), (4, 7), (5, 10), (6, 9), (7, 12), (8, 11), (9, 4), (10, 8);
+
+-- Example query
+SELECT * FROM user_favorites;
+```
+
+```sql
+-- List all songs liked by Alice
+SELECT u.username, s.title, a.name AS artist_name
+FROM user_favorites uf
+JOIN users u ON uf.user_id = u.user_id
+JOIN songs s ON uf.song_id = s.song_id
+JOIN artists a ON s.artist_id = a.artist_id
+WHERE u.username = 'alice';
+```
+
+```sql
+-- Find all songs by 'Sauti Sol'
+SELECT s.title, s.release_year
+FROM songs s
+JOIN artists a ON s.artist_id = a.artist_id
+WHERE a.name = 'Sauti Sol';
+```
+
+```sql
+-- Most popular artist (by total favorites across their songs)
+-- Aggregates favorites to rank artists
+-- Example: Who is the most liked artist overall?
+SELECT a.name, COUNT(uf.user_id) AS total_favorites
+FROM artists a
+JOIN songs s ON a.artist_id = s.artist_id
+LEFT JOIN user_favorites uf ON s.song_id = uf.song_id
+GROUP BY a.artist_id
+ORDER BY total_favorites DESC;
 ```
 
 </details>
