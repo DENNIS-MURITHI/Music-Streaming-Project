@@ -300,7 +300,7 @@ ORDER BY total_favorites DESC;
 
 </details>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#about-project">back to top</a></p>
 
 ---
 
