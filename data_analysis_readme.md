@@ -400,7 +400,7 @@ ggplot(genre_counts, aes(x = reorder(genre, n), y = n, fill = genre)) +
 ### Artist Performance Bubble Chart
 <img width="1366" height="686" alt="image" src="https://github.com/user-attachments/assets/e004292a-1f80-4ad9-97cf-b56b57af8339" />
 
-### Number of Artists per genre
+### Number of Artists per genre using Bar Chart
 
 <img width="1366" height="680" alt="image" src="https://github.com/user-attachments/assets/dfcdd318-6e0e-4f7e-8416-cb5bf4001f23" />
 
