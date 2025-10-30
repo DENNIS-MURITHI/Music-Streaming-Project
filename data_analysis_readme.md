@@ -342,21 +342,41 @@ ggplot(active_users, aes(x = reorder(username, favorites_count), y = favorites_c
   geom_col(show.legend=FALSE) + coord_flip() + theme_minimal() +
   labs(title='Most Active Users', x='Username', y='Number of Favorites')
 
-# Artist performance
-agg_artist <- dbGetQuery(con, "
-  SELECT a.name AS artist,
-         COUNT(DISTINCT s.song_id) AS n_songs,
-         COUNT(uf.song_id) AS total_favorites
-  FROM songs s
-  JOIN artists a ON s.artist_id = a.artist_id
-  LEFT JOIN user_favorites uf ON uf.song_id = s.song_id
-  GROUP BY a.name
+# Artist distribution per gender
+library(ggplot2)
+library(dplyr)
+
+# Query artist counts
+artist_genre <- dbGetQuery(con, "
+  SELECT genre, COUNT(*) AS artist_count
+  FROM artists
+  GROUP BY genre;
 ")
-agg_artist <- agg_artist %>% mutate(avg_fav_per_song = total_favorites / pmax(n_songs,1))
-ggplot(agg_artist, aes(x=n_songs, y=avg_fav_per_song, size=total_favorites, label=artist)) +
-  geom_point(alpha=0.7, color='steelblue') + geom_text(vjust=-1, size=3) + theme_minimal() +
-  labs(title='Artists: Breadth vs. Popularity', subtitle='Comparing number of songs to avg favorites per song',
-       x='Number of Songs', y='Average Favorites per Song', size='Total Favorites')
+
+# Calculate percentages
+artist_genre <- artist_genre %>%
+  mutate(percentage = round((artist_count / sum(artist_count)) * 100, 1))
+
+# Create pie chart with % labels
+ggplot(artist_genre, aes(x = "", y = artist_count, fill = genre)) +
+  geom_col(width = 1, color = "white") +
+  coord_polar(theta = "y") +
+  geom_text(
+    aes(label = paste0(percentage, "%")),
+    position = position_stack(vjust = 0.5),
+    color = "white",
+    size = 5
+  ) +
+  labs(
+    title = "🎶 Artist Distribution by Genre (%)",
+    fill = "Genre"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold")
+  )
+
+
 
 # Number of Artists per genre
 
@@ -410,14 +430,15 @@ ggplot(songs, aes(x = duration_seconds)) +
 <img width="1363" height="628" alt="most active user5" src="https://github.com/user-attachments/assets/12d08288-53ce-4880-8c05-ff0382909a74" />
 
 
-### Artist Performance Bubble Chart
-<img width="1366" height="686" alt="image" src="https://github.com/user-attachments/assets/e004292a-1f80-4ad9-97cf-b56b57af8339" />
+### Artist Distribution by genre pie chart
+<img width="1366" height="638" alt="image" src="https://github.com/user-attachments/assets/b05c1361-a470-46bc-a071-a365a4ebcbd4" />
+
 
 ### Number of Artists per genre using Bar Chart
 
 <img width="1366" height="680" alt="image" src="https://github.com/user-attachments/assets/dfcdd318-6e0e-4f7e-8416-cb5bf4001f23" />
 
-### Didtribution of songs duration
+### Distribution of songs duration
 
 <img width="1366" height="635" alt="image" src="https://github.com/user-attachments/assets/4b673d5b-c9c8-4814-8412-63ed767f8f62" />
 
