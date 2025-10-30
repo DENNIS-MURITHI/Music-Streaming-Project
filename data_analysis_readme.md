@@ -384,6 +384,19 @@ ggplot(genre_counts, aes(x = reorder(genre, n), y = n, fill = genre)) +
     axis.text.x = element_text(angle = 25, hjust = 1)
   )
 
+# Ditribution of songs duration
+songs <- dbGetQuery(con, "SELECT * FROM songs;")
+
+
+ggplot(songs, aes(x = duration_seconds)) +
+  geom_histogram(binwidth = 10, fill = "steelblue", color = "white") +
+  labs(
+    title = "⏱️ Distribution of Song Durations",
+    x = "Duration (seconds)",
+    y = "Number of Songs"
+  ) +
+  theme_minimal()
+
 
 ```
 
@@ -403,6 +416,10 @@ ggplot(genre_counts, aes(x = reorder(genre, n), y = n, fill = genre)) +
 ### Number of Artists per genre using Bar Chart
 
 <img width="1366" height="680" alt="image" src="https://github.com/user-attachments/assets/dfcdd318-6e0e-4f7e-8416-cb5bf4001f23" />
+
+### Didtribution of songs duration
+
+<img width="1366" height="635" alt="image" src="https://github.com/user-attachments/assets/4b673d5b-c9c8-4814-8412-63ed767f8f62" />
 
 
 <p align="right"><a href="#about-project">back to top</a></p>
