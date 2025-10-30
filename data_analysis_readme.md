@@ -357,6 +357,34 @@ ggplot(agg_artist, aes(x=n_songs, y=avg_fav_per_song, size=total_favorites, labe
   geom_point(alpha=0.7, color='steelblue') + geom_text(vjust=-1, size=3) + theme_minimal() +
   labs(title='Artists: Breadth vs. Popularity', subtitle='Comparing number of songs to avg favorites per song',
        x='Number of Songs', y='Average Favorites per Song', size='Total Favorites')
+
+# Number of Artists per genre
+
+artists <- dbGetQuery(con, "SELECT * FROM artists;")
+print(artists)
+
+library(ggplot2)
+library(dplyr)
+
+# Count how many artists per genre
+genre_counts <- artists %>%
+  dplyr::count(genre)
+
+# Plot as vertical bar chart
+ggplot(genre_counts, aes(x = reorder(genre, n), y = n, fill = genre)) +
+  geom_col(show.legend = FALSE, width = 0.7) +
+  labs(
+    title = "🎶 Number of Artists per Genre",
+    x = "Genre",
+    y = "Number of Artists"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    axis.text.x = element_text(angle = 25, hjust = 1)
+  )
+
+
 ```
 
 </details>
@@ -371,6 +399,10 @@ ggplot(agg_artist, aes(x=n_songs, y=avg_fav_per_song, size=total_favorites, labe
 
 ### Artist Performance Bubble Chart
 <img width="1366" height="686" alt="image" src="https://github.com/user-attachments/assets/e004292a-1f80-4ad9-97cf-b56b57af8339" />
+
+### Number of Artists per genre
+
+<img width="1366" height="680" alt="image" src="https://github.com/user-attachments/assets/dfcdd318-6e0e-4f7e-8416-cb5bf4001f23" />
 
 
 <p align="right"><a href="#about-project">back to top</a></p>
